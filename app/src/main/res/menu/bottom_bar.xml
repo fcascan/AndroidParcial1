@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    android:iconTint="?attr/colorAccent"-->
+    <item
+        android:id="@+id/dashboardIcon"
+        android:icon="@drawable/dashboard_icon"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/toolsIcon"
+        android:icon="@drawable/tools_icon"
+        android:title="Tools" />
+    <item
+        android:id="@+id/settingsIcon"
+        android:icon="@drawable/settings_icon"
+        android:title="My Profile" />
+</menu>

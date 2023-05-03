@@ -1,0 +1,38 @@
+[
+  {
+    "id" : 1,
+    "permissions": "ADMIN",
+    "avatarUrl": "",
+    "name" : "Admin",
+    "lastName" : "Admin",
+    "email" : "admin",
+    "password" : "admin"
+  },
+  {
+    "id" : 2,
+    "permissions": "ADMIN",
+    "avatarUrl": "",
+    "name" : "Testman",
+    "lastName" : "Tester",
+    "email" : "tt@gmail.com",
+    "password" : "asd123"
+  },
+  {
+    "id" : 3,
+    "permissions": "USER",
+    "avatarUrl": "",
+    "name" : "Fernando",
+    "lastName" : "CC",
+    "email" : "fcc@gmail.com",
+    "password" : "asd123"
+  },
+  {
+    "id" : 4,
+    "permissions": "GUEST",
+    "avatarUrl": "",
+    "name" : "Mister",
+    "lastName" : "Guest",
+    "email" : "guest",
+    "password" : "guest"
+  }
+]

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.fcascan.parcial1.fragments.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.fcascan.parcial1.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.fcascan.parcial1.fragments.CategoriesFragment"
+        android:label="fragment_categories"
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_categoriesFragment_to_addCategoryFragment"
+            app:destination="@id/addCategoryFragment" />
+        <action
+            android:id="@+id/action_categoriesFragment_to_editCategoryFragment"
+            app:destination="@id/editCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCategoryFragment"
+        android:name="com.fcascan.parcial1.fragments.AddCategoryFragment"
+        android:label="fragment_add_category"
+        tools:layout="@layout/fragment_add_category" >
+        <action
+            android:id="@+id/action_addCategoryFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editCategoryFragment"
+        android:name="com.fcascan.parcial1.fragments.EditCategoryFragment"
+        android:label="EditCategoryFragment" >
+        <action
+            android:id="@+id/action_editCategoryFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment" />
+        <argument
+            android:name="paramCategoryId"
+            app:argType="string" />
+    </fragment>
+</navigation>
