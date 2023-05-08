@@ -31,7 +31,6 @@ class EditCategoryFragment : Fragment() {
     lateinit var btnDelete : Button
 
     lateinit var userMail : String
-
     private var userDao : UserDao? = null
     private var categoryDao : CategoryDao? = null
     private var userCategoriesDao : UserCategoriesDao? = null
@@ -54,7 +53,7 @@ class EditCategoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.fragment_edit_category, container, false)
         txtName = v.findViewById(R.id.txtName)
         txtDescription = v.findViewById(R.id.txtDescription)
@@ -100,6 +99,7 @@ class EditCategoryFragment : Fragment() {
         }
 
         btnDelete.setOnClickListener {
+            //TODO: Borrar categoria de la base de datos Category
 //            categoryDao?.deleteCategoryById(paramCategoryId!!)
 //            userCategoriesDao?.deleteUserCategoriesByCategoryId(paramCategoryId!!)
             clearFields()

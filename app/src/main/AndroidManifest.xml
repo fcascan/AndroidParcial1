@@ -23,5 +23,8 @@
         </activity>
         <activity android:name=".activities.MainActivity"
             android:exported="true"/>
+<!--        TODO: AGREGAR SPLASHSCREEN-->
+<!--        <activity android:name=".activities.SplashScreen"-->
+<!--            android:exported="true"/>-->
     </application>
 </manifest>

@@ -5,13 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-//import com.fcascan.parcial1.ARG_PARAM1
-//import com.fcascan.parcial1.ARG_PARAM2
 import com.fcascan.parcial1.R
 import com.fcascan.parcial1.adapters.DashboardAdapter
 import com.google.android.material.snackbar.Snackbar

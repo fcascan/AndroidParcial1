@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    android:iconTint="?attr/colorAccent"-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_bar">
     <item
         android:id="@+id/dashboardIcon"
         android:icon="@drawable/dashboard_icon"

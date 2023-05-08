@@ -33,12 +33,12 @@ class PreloadUsers(private val context: Context) : RoomDatabase.Callback() {
                 val item = users.getJSONObject(i)
                 val user = User(
                     item.getInt("id"),
-                    getPermissionsFromString(item.getString("permissions")),
-                    item.getString("avatarUrl"),
                     item.getString("name"),
                     item.getString("lastName"),
                     item.getString("email"),
-                    item.getString("password")
+                    item.getString("password"),
+                    getPermissionsFromString(item.getString("permissions")),
+                    item.getString("avatarUrl")
                 )
                 userDao?.insertUser(user)
             }

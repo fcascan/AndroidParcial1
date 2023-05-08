@@ -2,7 +2,7 @@
   {
     "id" : 1,
     "permissions": "ADMIN",
-    "avatarUrl": "",
+    "avatarUrl": "https://lh3.googleusercontent.com/u/2/drive-viewer/AFGJ81p28OdJydhx0hijGHvzuOZQb6iIWETGGFBWRqioOQRBJzB4-qOnTB2OaDyo7S5JEetkvXWJxEup8GeQ8LDKWciS1oEHdA=w1920-h942",
     "name" : "Admin",
     "lastName" : "Admin",
     "email" : "admin",
@@ -20,7 +20,7 @@
   {
     "id" : 3,
     "permissions": "USER",
-    "avatarUrl": "",
+    "avatarUrl": "https://lh3.googleusercontent.com/u/2/drive-viewer/AFGJ81o5sVvxtGJxcBlvCTVFsAj5YK-5fmP5nFuqoEg9O4GdovCEfOcxKYTfpFXN6ZB5jdDyBjmwTQ1-ZSunijdnaT_dJ1qUtA=w1920-h942",
     "name" : "Fernando",
     "lastName" : "CC",
     "email" : "fcc@gmail.com",
@@ -34,5 +34,23 @@
     "lastName" : "Guest",
     "email" : "guest",
     "password" : "guest"
+  },
+  {
+    "id" : 5,
+    "permissions": "USER",
+    "avatarUrl": "https://lh3.googleusercontent.com/u/2/drive-viewer/AFGJ81qatAUVPZxmO4enpfaUpx383bv-MzqWdGa9j9TKOWkQWBW792l4SSLnargzWE0xQkN7We5-hxD9m1KBXAxL6QYCHvpn=w1920-h942",
+    "name" : "Sarah",
+    "lastName" : "Connor",
+    "email" : "sc@skynet.com",
+    "password" : "asd123"
+  },
+  {
+    "id" : 6,
+    "permissions": "USER",
+    "avatarUrl": "https://lh3.googleusercontent.com/u/2/drive-viewer/AFGJ81qVUFROWr-hmLRK09l1ajHtv12TY9x4eE4RXccoFg1HTi2adupEf4P1NXH6v1PXER8Y0_COI_2nJWl_aYMHSThoXF03=w1920-h942",
+    "name" : "Ellen Louise",
+    "lastName" : "Ripley",
+    "email" : "er@nostromo.com",
+    "password" : "asd123"
   }
 ]

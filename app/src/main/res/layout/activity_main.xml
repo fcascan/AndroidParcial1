@@ -18,6 +18,7 @@
         app:navigationIcon="@drawable/logout_icon"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="user@mail.com"
+        app:titleTextColor="@color/white"
         tools:ignore="MissingConstraints" />
 
     <androidx.fragment.app.FragmentContainerView
@@ -38,6 +39,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:itemTextAppearanceActive="@style/TextAppearance.Material3.BodyMedium"
         app:itemHorizontalTranslationEnabled="true"
         app:labelVisibilityMode="auto"
         app:layout_constraintBottom_toBottomOf="parent"

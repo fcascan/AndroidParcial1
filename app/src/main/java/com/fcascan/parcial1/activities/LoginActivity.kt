@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         val userDao : UserDao? = appDB?.userDao()
         if (userDao != null && hardcodeAdmin) {
             userDao.insertUser(
-                User(0, Permissions.ADMIN, "url", "admin", "admin", "admin", "admin"))
+                User(0, "Admin", "Admin", "admin", "admin", Permissions.ADMIN, "url"))
         }
         userDao?.getAllUsers()
 

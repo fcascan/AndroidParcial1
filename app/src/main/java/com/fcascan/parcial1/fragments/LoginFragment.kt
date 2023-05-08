@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.fragment.findNavController
 
 import com.fcascan.parcial1.R
 import com.fcascan.parcial1.activities.MainActivity
@@ -27,6 +28,8 @@ class LoginFragment : Fragment() {
     lateinit var txtEmail: TextView
     lateinit var txtPass: TextView
     lateinit var btnLogin: Button
+    lateinit var btnRegister: Button
+    lateinit var btnGuest: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,8 +40,8 @@ class LoginFragment : Fragment() {
         txtEmail = v.findViewById(R.id.txtEmail)
         txtPass = v.findViewById(R.id.txtPass)
         btnLogin = v.findViewById(R.id.btnLogin)
-        //TODO: Agregar boton para Registro de nuevos usuarios
-        //TODO: Agregar boton para ingreso como invitado (credenciales de gg@gmail.com)
+        btnRegister = v.findViewById(R.id.btnRegister)
+        btnGuest = v.findViewById(R.id.btnGuest)
         loadingProgressBar = v.findViewById(R.id.loading)
         return v
     }
@@ -54,6 +57,14 @@ class LoginFragment : Fragment() {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
+        txtEmail.addTextChangedListener {
+            areFieldsValid()
+        }
+
+        txtPass.addTextChangedListener {
+            areFieldsValid()
+        }
+
         btnLogin.setOnClickListener {
             loadingON()
             loginViewModel.login(
@@ -62,27 +73,38 @@ class LoginFragment : Fragment() {
             )
             val user = userDao?.getUserByEmailAndPassword(txtEmail.text.toString(), txtPass.text.toString())
             if (user != null) {
-                displayMessage("Logged in Successfully. Redirecting...")
-                Log.d("LoginFragment", "Credentials match with DB")
+                displayMessage("Logged in Successfully. Redirecting...", "Credentials match with DB")
                 val intent = Intent(this.context, MainActivity::class.java).apply {
                     putExtra("paramUserMail", user.email)
                 }
                 startActivity(intent)
             } else {
-                txtPass.setText("")
+                txtPass.text = ""
                 loadingOFF()
-                displayMessage("Wrong Credentials, try again or Register")
-                Log.d("LoginFragment", "Credentials do not match with DB")
+                displayMessage("Wrong Credentials, try again or Register", "Credentials do not match with DB")
             }
         }
 
-        txtEmail.addTextChangedListener {
-            areFieldsValid()
+        btnRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
-        txtPass.addTextChangedListener {
-            areFieldsValid()
+        btnGuest.setOnClickListener {
+            loadingON()
+            val user = userDao?.getUserByEmailAndPassword("guest", "guest")
+            if (user != null) {
+                displayMessage("Redirecting...", "Logged in as Guest Successfully")
+                val intent = Intent(this.context, MainActivity::class.java).apply {
+                    putExtra("paramUserMail", user.email)
+                }
+                startActivity(intent)
+            } else {
+                txtPass.text = ""
+                loadingOFF()
+                displayMessage("Something went wrong, try again later.", "Could not find Guest user in DB")
+            }
         }
+
 
 //
 //        val usernameEditText = binding.username
@@ -153,8 +175,9 @@ class LoginFragment : Fragment() {
 //        }
     }
 
-    fun displayMessage(message: String) {
-        Snackbar.make(v, message, Snackbar.LENGTH_SHORT).setAnchorView(R.id.btnLogin).show()
+    fun displayMessage(snackMsg: String, logMsg: String = "") {
+        Log.d("LoginFragment", if (logMsg == "") snackMsg else logMsg)
+        Snackbar.make(v, snackMsg, Snackbar.LENGTH_SHORT).setAnchorView(R.id.btnLogin).show()
     }
 
     fun areFieldsValid(): Boolean {
