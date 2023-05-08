@@ -84,7 +84,7 @@ class EditCategoryFragment : Fragment() {
             userCategoriesDao?.updateUserCategories(userCategoriesDao?.getUserCategoriesByCategoryId(paramCategoryId!!)!!)
             clearFields()
             Snackbar.make(v, "Saved Successfully", Snackbar.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_editCategoryFragment_to_categoriesFragment)
+            findNavController().navigateUp()
         }
 
         btnClear.setOnClickListener {
@@ -95,7 +95,7 @@ class EditCategoryFragment : Fragment() {
         btnCancel.setOnClickListener {
             clearFields()
             Snackbar.make(v, "Edition Cancelled", Snackbar.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_editCategoryFragment_to_categoriesFragment)
+            findNavController().navigateUp()
         }
 
         btnDelete.setOnClickListener {
@@ -104,7 +104,7 @@ class EditCategoryFragment : Fragment() {
 //            userCategoriesDao?.deleteUserCategoriesByCategoryId(paramCategoryId!!)
             clearFields()
             Snackbar.make(v, "Category Deleted", Snackbar.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_editCategoryFragment_to_categoriesFragment)
+            findNavController().navigateUp()
         }
 
     }

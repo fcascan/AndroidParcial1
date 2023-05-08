@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:backgroundTint="?attr/colorSecondaryVariant"
     app:cardCornerRadius="24dp">
@@ -12,14 +12,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Constraint_Layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:text="Name"
             android:textSize="24sp"
@@ -31,12 +31,12 @@
         <TextView
             android:id="@+id/txtDescription"
             android:layout_width="349dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center_horizontal"
-            android:text="Description"
+            android:text="Descripcion"
             android:textSize="20sp"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
             android:text="#Items: 100"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"

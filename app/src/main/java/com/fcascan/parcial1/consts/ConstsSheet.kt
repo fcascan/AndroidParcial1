@@ -8,7 +8,7 @@ const val WOMAN1_USER_IMG_URL = "https://lh3.googleusercontent.com/u/2/drive-vie
 const val WOMAN2_USER_IMG_URL = "https://lh3.googleusercontent.com/u/2/drive-viewer/AFGJ81qatAUVPZxmO4enpfaUpx383bv-MzqWdGa9j9TKOWkQWBW792l4SSLnargzWE0xQkN7We5-hxD9m1KBXAxL6QYCHvpn=w1920-h942"
 
 const val AVATAR_SIZE_MULTIPLIER = 0.12f
-const val ITEM_AVATAR_SIZE_MULTIPLIER = 0.25f
+const val ITEM_AVATAR_SIZE_MULTIPLIER = 0.19f
 const val ITEM_IMG_SIZE_MULTIPLIER = 0.50f
 
 

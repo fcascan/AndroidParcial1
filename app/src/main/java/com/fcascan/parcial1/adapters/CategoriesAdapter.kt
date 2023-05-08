@@ -30,6 +30,7 @@ class CategoriesAdapter (
         }
 
         fun setTotalItemsContained(totalItemsContained: Int) {
+            //TODO: aca deberia calcular la cantidad de items que contiene esta categoria??
             val txtTotalItemsContained: TextView = view.findViewById(R.id.txtTotalItemsContained)
             txtTotalItemsContained.text = totalItemsContained.toString()
         }

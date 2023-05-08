@@ -22,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 class CategoriesFragment : Fragment() {
     lateinit var v: View
     lateinit var fabDashboard: FloatingActionButton
-    lateinit var recViewCategories: RecyclerView
+    private lateinit var recViewCategories: RecyclerView
     lateinit var recViewAdapter: CategoriesAdapter
 
     lateinit var userMail : String
@@ -42,24 +42,24 @@ class CategoriesFragment : Fragment() {
 
         val mainActivity = activity as MainActivity
         userMail = mainActivity.paramUserMail.toString()
+
+        populateCategories()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.fragment_categories, container, false)
-        fabDashboard = v.findViewById(R.id.fabDashboard)
+        fabDashboard = v.findViewById(R.id.fabCategories)
         recViewCategories = v.findViewById(R.id.recViewCategories)
+
         return v
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        populateCategories()
-
-        Log.d("CategoriesFragment", "categoriesList: ${categoriesList.toString()}")
         recViewAdapter = CategoriesAdapter(categoriesList, {
                 index -> onCardClicked(index)
                 }, {
@@ -75,7 +75,7 @@ class CategoriesFragment : Fragment() {
     }
 
 
-    fun populateCategories(){
+    private fun populateCategories(){
         val userId = userDao?.getUserIdByEmail(userMail)
         if (userId != null) {
             userCategoriesDao?.getUserCategoriesByUserId(userId)?.forEach {
@@ -110,8 +110,7 @@ class CategoriesFragment : Fragment() {
     private fun onCardClicked(index: Int) {
         Log.d("CategoriesFragment", "Clicked on card $index")
         Log.d("CategoriesFragment", "Redirecting to ItemsFragment")
-//        findNavController().navigate(R.id.action_categoriesFragment_to_itemsFragment)
-        Snackbar.make(v, "No se pudo navegar", Snackbar.LENGTH_LONG).show()
+        findNavController().navigate(R.id.action_categoriesFragment_to_itemsFragment)
     }
 
     private fun onCardLongClicked(index: Int) {
@@ -119,7 +118,7 @@ class CategoriesFragment : Fragment() {
         Log.d("CategoriesFragment", "Redirecting to EditCategoryFragment")
         val bundle = Bundle()
         bundle.putString("paramCategoryId", categoriesList[index].id.toString())
-        Log.d("CategoriesFragment", "paramCategoryId: ${categoriesList[index].id.toString()}")
+        Log.d("CategoriesFragment", "paramCategoryId: ${categoriesList[index].id}")
         findNavController().navigate(R.id.action_categoriesFragment_to_editCategoryFragment, bundle)
     }
 

@@ -20,6 +20,11 @@ class DashboardFragment : Fragment() {
 
     private lateinit var dashboardList : MutableList<DashboardAdapter.DashboardObject>
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        populateDashboard()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,11 +37,6 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        populateDashboard()
-
-        //TODO: Obtener cantidad de categorias y cantidad de items de este usuario
-        // y mostrar el nro correcto en las cartas
-
         Log.d("DashboardFragment", dashboardList.toString())
         recViewAdapter = DashboardAdapter(dashboardList){
             index -> onCardClicked(index)
@@ -47,21 +47,27 @@ class DashboardFragment : Fragment() {
     }
 
     private fun onCardClicked(index: Int) {
-        if(dashboardList[index].name == "Categorias"){
-            Log.d("DashboardFragment", "Redirecting to CategoriesFragment")
-            findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToCategoriesFragment())
-        } else if(dashboardList[index].name == "Items"){
-            Log.d("DashboardFragment", "Redirecting to ItemsFragment")
-//            findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToItemListFragment())
-        } else {
-            Snackbar.make(v, "No se pudo navegar", Snackbar.LENGTH_LONG).show()
+        when(dashboardList[index].name){
+            "Categorias" -> {
+                Log.d("DashboardFragment", "Redirecting to CategoriesFragment")
+                findNavController().navigate(R.id.action_dashboardFragment_to_categoriesFragment)
+            }
+            "Items" -> {
+                Log.d("DashboardFragment", "Redirecting to ItemsFragment")
+                findNavController().navigate(R.id.action_dashboardFragment_to_itemsFragment)
+            }
+            else -> {
+                Snackbar.make(v, "No se pudo navegar", Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 
-    fun populateDashboard() {
+    private fun populateDashboard() {
+        //TODO: Obtener cantidad de categorias y cantidad de items de este usuario
+        // y mostrar el nro correcto en las cartas
         dashboardList = mutableListOf(
             DashboardAdapter.DashboardObject("Categorias", "ver listado de categorias", 0),
-            DashboardAdapter.DashboardObject("Items", "ver listado de items", 0)
+            DashboardAdapter.DashboardObject("Items", "ver listado de todos los items", 0)
         )
     }
 }

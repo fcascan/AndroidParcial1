@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/CategoriesLayout"
+    android:id="@+id/ItemsLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CategoriesFragment">
+    tools:context=".fragments.ItemsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recViewCategories"
+        android:id="@+id/recViewItems"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -18,12 +18,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabCategories"
+        android:id="@+id/fabItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:contentDescription="Add New Category"
+        android:contentDescription="Add New Item"
         android:src="@android:drawable/ic_input_add"
         app:tint="@color/white"
         app:backgroundTint="?attr/colorPrimary"

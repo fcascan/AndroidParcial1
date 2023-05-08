@@ -71,7 +71,7 @@ class AddCategoryFragment : Fragment() {
             userCategoriesDao?.insertUserCategories(newRelation)
             clearFields()
             Snackbar.make(v, "Saved successfully", Snackbar.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_addCategoryFragment_to_categoriesFragment)
+            findNavController().navigateUp()
         }
 
         btnClear.setOnClickListener {

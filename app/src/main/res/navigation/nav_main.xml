@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_categoriesFragment"
             app:destination="@id/categoriesFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_itemsFragment"
+            app:destination="@id/itemsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -30,23 +33,19 @@
         <action
             android:id="@+id/action_categoriesFragment_to_editCategoryFragment"
             app:destination="@id/editCategoryFragment" />
+        <action
+            android:id="@+id/action_categoriesFragment_to_itemsFragment"
+            app:destination="@id/itemsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCategoryFragment"
         android:name="com.fcascan.parcial1.fragments.AddCategoryFragment"
         android:label="fragment_add_category"
-        tools:layout="@layout/fragment_add_category" >
-        <action
-            android:id="@+id/action_addCategoryFragment_to_categoriesFragment"
-            app:destination="@id/categoriesFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_add_category" />
     <fragment
         android:id="@+id/editCategoryFragment"
         android:name="com.fcascan.parcial1.fragments.EditCategoryFragment"
         android:label="EditCategoryFragment" >
-        <action
-            android:id="@+id/action_editCategoryFragment_to_categoriesFragment"
-            app:destination="@id/categoriesFragment" />
         <argument
             android:name="paramCategoryId"
             app:argType="string" />
@@ -64,9 +63,50 @@
         android:id="@+id/registerFragment2"
         android:name="com.fcascan.parcial1.fragments.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="com.fcascan.parcial1.fragments.ItemsFragment"
+        android:label="fragment_items"
+        tools:layout="@layout/fragment_items" >
         <action
-            android:id="@+id/action_registerFragment2_to_toolsFragment"
+            android:id="@+id/action_itemsFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+        <action
+            android:id="@+id/action_itemsFragment_to_editItemFragment"
+            app:destination="@id/editItemFragment" />
+        <action
+            android:id="@+id/action_itemsFragment_to_viewItemFragment"
+            app:destination="@id/viewItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.fcascan.parcial1.fragments.AddItemFragment"
+        android:label="fragment_add_item"
+        tools:layout="@layout/fragment_add_item" />
+    <fragment
+        android:id="@+id/editItemFragment"
+        android:name="com.fcascan.parcial1.fragments.EditItemFragment"
+        android:label="fragment_edit_item"
+        tools:layout="@layout/fragment_edit_item" />
+    <fragment
+        android:id="@+id/viewItemFragment"
+        android:name="com.fcascan.parcial1.fragments.ViewItemFragment"
+        android:label="fragment_view_item"
+        tools:layout="@layout/fragment_view_item" >
+        <action
+            android:id="@+id/action_viewItemFragment_to_editItemFragment"
+            app:destination="@id/editItemFragment" />
+    </fragment>
+    <fragment android:id="@+id/placeholder" >
+        <action
+            android:id="@+id/action_placeholder_to_toolsFragment"
             app:destination="@id/toolsFragment" />
+        <action
+            android:id="@+id/action_placeholder_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_placeholder_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>
