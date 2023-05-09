@@ -144,8 +144,8 @@ class AddItemFragment : Fragment() {
         val newItem = Item(
             0,
             txtName.text.toString(),
-            txtDescription.text.toString(),
             txtImgUrl.text.toString(),
+            txtDescription.text.toString(),
             field1.text.toString(),
             field2.text.toString(),
             field3.text.toString()
