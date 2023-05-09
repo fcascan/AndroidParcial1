@@ -108,12 +108,20 @@ class ProfileFragment : Fragment() {
     }
 
     private fun disableAllFields() {
-        txtName.isEnabled = false
-        txtLastName.isEnabled = false
-        txtEmail.isEnabled = false
-        txtPass.isEnabled = false
-        txtPassMatch.isEnabled = false
-        txtAvatarUrl.isEnabled = false
+//        txtName.isEnabled = false
+//        txtLastName.isEnabled = false
+//        txtEmail.isEnabled = false
+//        txtPass.isEnabled = false
+//        txtPassMatch.isEnabled = false
+//        txtAvatarUrl.isEnabled = false
+//        spinnerPermissions.isEnabled = false
+
+        txtName.focusable = View.NOT_FOCUSABLE
+        txtLastName.focusable = View.NOT_FOCUSABLE
+        txtEmail.focusable = View.NOT_FOCUSABLE
+        txtPass.focusable = View.NOT_FOCUSABLE
+        txtPassMatch.focusable = View.NOT_FOCUSABLE
+        txtAvatarUrl.focusable = View.NOT_FOCUSABLE
         spinnerPermissions.isEnabled = false
         btnSave.isEnabled = false
         btnDelete.isEnabled = false

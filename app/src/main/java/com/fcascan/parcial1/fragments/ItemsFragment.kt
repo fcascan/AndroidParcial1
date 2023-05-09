@@ -14,13 +14,14 @@ import com.fcascan.parcial1.activities.MainActivity
 import com.fcascan.parcial1.adapters.ItemsAdapter
 import com.fcascan.parcial1.dao.ItemDao
 import com.fcascan.parcial1.dao.ItemInUserCategoriesDao
+import com.fcascan.parcial1.dao.UserCategoriesDao
 import com.fcascan.parcial1.dao.UserDao
 import com.fcascan.parcial1.database.AppDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
 class ItemsFragment : Fragment() {
-    private var paramCategoryId: Int? = null   //Input Parameter
+    private var categoryIdPreviouslySelected : Int? = null  //Input Parameter
 
     lateinit var v: View
     lateinit var fabItems: FloatingActionButton
@@ -28,22 +29,23 @@ class ItemsFragment : Fragment() {
     lateinit var recViewAdapter: ItemsAdapter
 
     lateinit var userMail : String
-
+    private var userCategoriesDao : UserCategoriesDao? = null
     private var userDao : UserDao? = null
+
     private var itemsDao : ItemDao? = null
     private var itemInUserCategoriesDao : ItemInUserCategoriesDao? = null
     private var itemsList = mutableListOf<ItemsAdapter.ItemsObject>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        paramCategoryId = arguments?.getString("paramCategoryId")?.toInt()
-
-        Log.d("ItemsFragment", "Category ID: $paramCategoryId")
+        //TODO: Agregar un texto que se muestre en el Fragment con la Categoria seleccionada
+        categoryIdPreviouslySelected = arguments?.getString("paramCategoryId")?.toInt()
+        Log.d("ItemsFragment", "Received paramCategoryId: $categoryIdPreviouslySelected")
 
         val appDB : AppDatabase? = AppDatabase.getInstance(requireContext())
         userDao = appDB?.userDao()
         itemsDao = appDB?.itemDao()
+        userCategoriesDao = appDB?.userCategoriesDao()
         itemInUserCategoriesDao = appDB?.itemInUserCategoriesDao()
 
         val mainActivity = activity as MainActivity
@@ -65,7 +67,6 @@ class ItemsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         recViewAdapter = ItemsAdapter(itemsList, {
                 index -> onCardClicked(index)
                 }, {
@@ -85,36 +86,61 @@ class ItemsFragment : Fragment() {
     }
 
     private fun populateItems() {
-        //TODO: crear la lista a mostrar acorde al usuario y a la categoria seleccionada anteriormente
-//        val userId = userDao?.getUserIdByEmail(userMail)
-//        if (userId != null) {
-//            userCategoriesDao?.getUserCategoriesByUserId(userId)?.forEach {
-//                if (it != null) {
-//                    categoriesDao?.getCategoryById(it.category_id)?.let { it1 ->
-//                        categoriesList.add(
-//                            CategoriesAdapter.CategoriesObject(
-//                                it1.id,
-//                                it1.name,
-//                                it1.description,
-//                                0
-//                            )
-//                        )
-//                    }
-//                } else {
-//                    Snackbar.make(v, "No se encontraron Categorias para mostrar", Snackbar.LENGTH_LONG).show()
-//                }
-//            }
-//        } else {
-//            Snackbar.make(v, "Error: No se pudo obtener el usuario", Snackbar.LENGTH_LONG).show()
-//        }
+        val userId = userDao?.getUserIdByEmail(userMail)
+        if (userId == null) {
+            Snackbar.make(v, "User not found", Snackbar.LENGTH_LONG).show()
+            return
+        }
+        if (categoryIdPreviouslySelected != null) {
+            val userCategory = userCategoriesDao?.getUserCategoryByUserIdAndCategoryId(userId,
+                categoryIdPreviouslySelected!!
+            )
+            if (userCategory == null) {
+                Snackbar.make(v, "Category for User not found", Snackbar.LENGTH_LONG).show()
+                return
+            }
+            val itemsListTemp = itemInUserCategoriesDao?.getAllItemsWithUserCategoryId(userCategory.id)
+            if (itemsListTemp == null) {
+                Snackbar.make(v, "Items not found for this Category and User", Snackbar.LENGTH_LONG).show()
+                return
+            }
+            itemsListTemp.forEach{
+                if (it != null) {
+                    itemsDao?.getItemById(it.item_id)?.let { it1 ->
+                        itemsList.add(
+                            ItemsAdapter.ItemsObject(it1.id, it1.name,  it1.description, it1.photoUrl)
+                        )
+                    }
+                }
+            }
+        } else {
+            val userCategoriesList = userCategoriesDao?.getUserCategoriesByUserId(userId)
+            if (userCategoriesList == null) {
+                Snackbar.make(v, "Categories for User not found", Snackbar.LENGTH_LONG).show()
+                return
+            }
+            userCategoriesList.forEach {
+                if (it != null) {
+                    itemInUserCategoriesDao?.getAllItemsWithUserCategoryId(it.id)?.forEach { it1 ->
+                        if (it1 != null) {
+                            itemsDao?.getItemById(it1.item_id)?.let { it2 ->
+                                itemsList.add(
+                                    ItemsAdapter.ItemsObject(it2.id, it2.name, it2.description, it2.photoUrl)
+                                )
+                            }
+                        }
+                    }
+                } else Snackbar.make(v, "Category for User not found", Snackbar.LENGTH_LONG).show()
+            }
+        }
 
-        //Lista hardcodeada:
-        itemsList = mutableListOf(
-            ItemsAdapter.ItemsObject(1,"",  "Item1", "Item1 description"),
-            ItemsAdapter.ItemsObject(2,"",  "Item2", "Item1 description"),
-            ItemsAdapter.ItemsObject(3,"",  "Item3", "Item1 description"),
-            ItemsAdapter.ItemsObject(4, "", "Item4", "Item1 description"),
-        )
+        //Lista items hardcodeada:
+//        itemsList = mutableListOf(
+//            ItemsAdapter.ItemsObject(1,"",  "Item1", "Item1 description"),
+//            ItemsAdapter.ItemsObject(2,"",  "Item2", "Item1 description"),
+//            ItemsAdapter.ItemsObject(3,"",  "Item3", "Item1 description"),
+//            ItemsAdapter.ItemsObject(4, "", "Item4", "Item1 description"),
+//        )
     }
 
     private fun onCardClicked(index: Int) {

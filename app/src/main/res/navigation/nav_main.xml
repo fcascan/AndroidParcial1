@@ -78,25 +78,41 @@
         <action
             android:id="@+id/action_itemsFragment_to_viewItemFragment"
             app:destination="@id/viewItemFragment" />
+        <argument
+            android:name="paramCategoryId"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"
         android:name="com.fcascan.parcial1.fragments.AddItemFragment"
         android:label="fragment_add_item"
-        tools:layout="@layout/fragment_add_item" />
+        tools:layout="@layout/fragment_add_item" >
+        <argument
+            android:name="paramCategoryId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/editItemFragment"
         android:name="com.fcascan.parcial1.fragments.EditItemFragment"
         android:label="fragment_edit_item"
-        tools:layout="@layout/fragment_edit_item" />
+        tools:layout="@layout/fragment_edit_item1" >
+        <argument
+            android:name="paramItemId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/viewItemFragment"
         android:name="com.fcascan.parcial1.fragments.ViewItemFragment"
         android:label="fragment_view_item"
-        tools:layout="@layout/fragment_view_item" >
+        tools:layout="@layout/fragment_edit_item" >
         <action
             android:id="@+id/action_viewItemFragment_to_editItemFragment"
             app:destination="@id/editItemFragment" />
+        <argument
+            android:name="paramItemId"
+            app:argType="string" />
     </fragment>
     <fragment android:id="@+id/placeholder" >
         <action

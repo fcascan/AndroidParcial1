@@ -46,13 +46,12 @@ class AddCategoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.fragment_add_category, container, false)
         txtName = v.findViewById(R.id.txtName)
         txtDescription = v.findViewById(R.id.txtDescription)
         btnSave = v.findViewById(R.id.btnSave)
         btnClear = v.findViewById(R.id.btnClear)
-
         return v
     }
 
@@ -64,7 +63,10 @@ class AddCategoryFragment : Fragment() {
             //2) Guardo la relacion entre el usuario y la nueva categoria en la base de datos UserCategories
             val newCategory = Category(0, txtName.text.toString(), txtDescription.text.toString())
             val newCategoryId = categoryDao?.insertCategory(newCategory)
-            if (newCategoryId == null) {return@setOnClickListener}
+            if (newCategoryId == null) {
+                Snackbar.make(v, "Error saving category", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val userId = userDao?.getUserIdByEmail(userMail)
             if (userId == null) {return@setOnClickListener}
             val newRelation = UserCategories(0, userId, newCategoryId.toInt())
@@ -81,9 +83,9 @@ class AddCategoryFragment : Fragment() {
 
     }
 
-    fun clearFields(){
-        txtName.setText("")
-        txtDescription.setText("")
+    private fun clearFields(){
+        txtName.text.clear()
+        txtDescription.text.clear()
     }
 
 }

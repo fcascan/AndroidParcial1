@@ -27,7 +27,6 @@ class ItemsAdapter(
 
         fun setImgItem(context: Context, imgItemUrl: String) {
             val imgItem: ImageView = view.findViewById(R.id.imgItem)
-            //TODO: Glide! va aca??
             Glide.with(context)
                 .load(imgItemUrl)
                 .error(
@@ -58,11 +57,11 @@ class ItemsAdapter(
         }
     }
 
-    class ItemsObject(id: Int, imgItem: String, name: String, description: String) {
+    class ItemsObject(id: Int, name: String, description: String, imgItem: String) {
         var id: Int = id
-        var imgItem: String = imgItem
         var name: String = name
         var description: String = description
+        var imgItem: String = imgItem
     }
 
     override fun getItemCount(): Int {

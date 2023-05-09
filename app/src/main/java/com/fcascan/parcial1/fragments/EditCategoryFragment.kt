@@ -80,11 +80,24 @@ class EditCategoryFragment : Fragment() {
 //            val newRelation = UserCategories(0, userId, newCategoryId.toInt())
 //            userCategoriesDao?.insertUserCategories(newRelation)
 //            clearFields()
-            categoryDao?.updateCategory(Category(paramCategoryId!!, txtName.text.toString(), txtDescription.text.toString()))
-            userCategoriesDao?.updateUserCategories(userCategoriesDao?.getUserCategoriesByCategoryId(paramCategoryId!!)!!)
-            clearFields()
-            Snackbar.make(v, "Saved Successfully", Snackbar.LENGTH_LONG).show()
-            findNavController().navigateUp()
+
+            //2)
+//            categoryDao?.updateCategory(Category(paramCategoryId!!, txtName.text.toString(), txtDescription.text.toString()))
+//            userCategoriesDao?.updateUserCategories(userCategoriesDao?.getUserCategoryByCategoryId(paramCategoryId!!)!!)
+//            clearFields()
+//            Snackbar.make(v, "Saved Successfully", Snackbar.LENGTH_LONG).show()
+//            findNavController().navigateUp()
+
+            //3)
+            val category = paramCategoryId?.let { it1 -> categoryDao?.getCategoryById(it1) }
+            if (category != null) {
+                category.name = txtName.text.toString()
+                category.description = txtDescription.text.toString()
+                categoryDao?.updateCategory(category)
+                Snackbar.make(v, "Category Updated", Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(v, "Category couldn't be saved", Snackbar.LENGTH_LONG).show()
+            }
         }
 
         btnClear.setOnClickListener {
@@ -99,22 +112,26 @@ class EditCategoryFragment : Fragment() {
         }
 
         btnDelete.setOnClickListener {
-            //TODO: Borrar categoria de la base de datos Category
-//            categoryDao?.deleteCategoryById(paramCategoryId!!)
-//            userCategoriesDao?.deleteUserCategoriesByCategoryId(paramCategoryId!!)
-            clearFields()
-            Snackbar.make(v, "Category Deleted", Snackbar.LENGTH_LONG).show()
-            findNavController().navigateUp()
+            val category = paramCategoryId?.let { categoryDao?.getCategoryById(it) }
+            if (category != null) {
+                categoryDao?.deleteCategory(category)
+                //TODO: Borrar la relacion entre el usuario y la categoria
+//                userCategoriesDao?.deleteUserCategoriesWithCategoryId(category.id)
+                clearFields()
+                Snackbar.make(v, "Category Deleted", Snackbar.LENGTH_LONG).show()
+                findNavController().navigateUp()
+            } else {
+                Snackbar.make(v, "Category Not Found", Snackbar.LENGTH_LONG).show()
+            }
         }
-
     }
 
-    fun clearFields(){
-        txtName.setText("")
-        txtDescription.setText("")
+    private fun clearFields(){
+        txtName.text.clear()
+        txtDescription.text.clear()
     }
 
-    fun populateFields() {
+    private fun populateFields() {
         val category = paramCategoryId?.let { categoryDao?.getCategoryById(it) }
         if (category != null) {
             txtName.setText(category.name)

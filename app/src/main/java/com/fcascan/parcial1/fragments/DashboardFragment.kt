@@ -54,7 +54,10 @@ class DashboardFragment : Fragment() {
             }
             "Items" -> {
                 Log.d("DashboardFragment", "Redirecting to ItemsFragment")
-                findNavController().navigate(R.id.action_dashboardFragment_to_itemsFragment)
+                val bundle = Bundle()
+                bundle.putString("paramCategoryId", null)
+                Log.d("CategoriesFragment", "Redirecting to Items with null paramCategoryId")
+                findNavController().navigate(R.id.action_dashboardFragment_to_itemsFragment, bundle)
             }
             else -> {
                 Snackbar.make(v, "No se pudo navegar", Snackbar.LENGTH_LONG).show()

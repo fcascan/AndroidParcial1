@@ -72,45 +72,42 @@ class CategoriesFragment : Fragment() {
         fabDashboard.setOnClickListener {
             onFabClicked()
         }
+
+        categoriesList.forEachIndexed { index, _ ->
+            Log.d("CategoriesFragment", "Cat #${index}: ${categoriesList[index].name}")
+        }
     }
 
 
     private fun populateCategories(){
         val userId = userDao?.getUserIdByEmail(userMail)
-        if (userId != null) {
-            userCategoriesDao?.getUserCategoriesByUserId(userId)?.forEach {
-                if (it != null) {
-                    categoriesDao?.getCategoryById(it.category_id)?.let { it1 ->
-                        categoriesList.add(
-                            CategoriesAdapter.CategoriesObject(
-                                it1.id,
-                                it1.name,
-                                it1.description,
-                                0
-                            )
-                        )
-                    }
-                } else {
-                    Snackbar.make(v, "No se encontraron Categorias para mostrar", Snackbar.LENGTH_LONG).show()
+        if (userId == null) {
+            Snackbar.make(v, "User not found", Snackbar.LENGTH_LONG).show()
+            return
+        }
+        val userCategories = userCategoriesDao?.getUserCategoriesByUserId(userId)
+        if (userCategories == null) {
+            Snackbar.make(v, "Categories for User not found", Snackbar.LENGTH_LONG).show()
+            return
+        }
+        userCategories.forEach{
+            if (it != null) {
+                categoriesDao?.getCategoryById(it.category_id)?.let { it1 ->
+                    categoriesList.add(
+                        CategoriesAdapter.CategoriesObject(it1.id, it1.name, it1.description, 0)
+                    )
                 }
             }
-        } else {
-            Snackbar.make(v, "Error: No se pudo obtener el usuario", Snackbar.LENGTH_LONG).show()
         }
-
-        //Lista hardcodeada:
-//        categoriesList = mutableListOf(
-//            CategoriesAdapter.CategoriesObject("Handheld Systems", "Consolas portatiles", 4),
-//            CategoriesAdapter.CategoriesObject("Video Games Consoles", "Consolas de sobremesa", 5),
-//            CategoriesAdapter.CategoriesObject("Retro Arcades", "Fichines o muebles arcade retro", 15),
-//            CategoriesAdapter.CategoriesObject("Pinballs", "Flippers o pinballs", 8),
-//        )
     }
 
     private fun onCardClicked(index: Int) {
         Log.d("CategoriesFragment", "Clicked on card $index")
         Log.d("CategoriesFragment", "Redirecting to ItemsFragment")
-        findNavController().navigate(R.id.action_categoriesFragment_to_itemsFragment)
+        val bundle = Bundle()
+        bundle.putString("paramCategoryId", categoriesList[index].id.toString())
+        Log.d("CategoriesFragment", "Redirecting to Items with paramCategoryId: ${categoriesList[index].id}")
+        findNavController().navigate(R.id.action_categoriesFragment_to_itemsFragment, bundle)
     }
 
     private fun onCardLongClicked(index: Int) {
@@ -118,12 +115,12 @@ class CategoriesFragment : Fragment() {
         Log.d("CategoriesFragment", "Redirecting to EditCategoryFragment")
         val bundle = Bundle()
         bundle.putString("paramCategoryId", categoriesList[index].id.toString())
-        Log.d("CategoriesFragment", "paramCategoryId: ${categoriesList[index].id}")
+        Log.d("CategoriesFragment", "Redirecting to EditCategory with paramCategoryId: ${categoriesList[index].id}")
         findNavController().navigate(R.id.action_categoriesFragment_to_editCategoryFragment, bundle)
     }
 
     private fun onFabClicked() {
-        Log.d("CategoriesFragment", "Redirecting to AddCategoryFragment")
+        Log.d("CategoriesFragment", "Redirecting to AddCategory")
         findNavController().navigate(R.id.action_categoriesFragment_to_addCategoryFragment)
     }
 }

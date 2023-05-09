@@ -32,13 +32,13 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
             android:background="@android:drawable/editbox_background"
-            android:drawableEnd="@drawable/arrow_dropdown_24"
             android:gravity="center_vertical"
             android:hint="Select user from DB"
             android:padding="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+            app:drawableEndCompat="@drawable/arrow_dropdown_24" />
 
         <ImageView
             android:id="@+id/imgAvatar"
