@@ -79,10 +79,10 @@ class ItemsAdapter(
         holder.setName(itemsList[index].name)
         holder.setDescription(itemsList[index].description)
         holder.getCard().setOnClickListener {
-            onClick(itemsList[index].id)
+            onClick(index)
         }
         holder.getCard().setOnLongClickListener {
-            onLongClick(itemsList[index].id)
+            onLongClick(index)
             true
         }
     }
